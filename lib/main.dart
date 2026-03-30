@@ -10,17 +10,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.purple,     
+          ),
+      ),
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.purpleAccent,
-          title: Center(child: Text("nome do meu app")),
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Center(child: Text("Meu app Stateful!")),
         ),
-        body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("olá, mundo!"), Icon(Icons.add_location_sharp)],
-          ),
-        ),
+        body: HomePage()
       ),
     );
   }
@@ -35,19 +35,32 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<StatefulWidget> {
   String texto = "olá, mundo!";
-
+  int counter = 0;
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
+      child: Column(
+        spacing: 12,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(texto),
-          ElevatedButton(onPressed: () {
-            setState(() {
-              texto = "voce mudou o texto!";
-            });
-          }, child: Text("clique em mim!"))
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).cardColor
+            ),
+            onPressed: () {
+              setState(() {
+                counter++;
+                texto = "voce mudou o texto $counter vez(es)!";
+              });
+          },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text("clique em mim!"),
+              Icon(Icons.ads_click_outlined)
+            ],
+          ))
           ],
       ),
     );
